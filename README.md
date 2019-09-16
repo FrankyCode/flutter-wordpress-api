@@ -21,3 +21,9 @@ This Project is created with the idea How to use Wordpres API as a Backend for t
 
 ## Flutter Packages
 - [Http](https://pub.dev/packages/http)
+
+## Articles for Flutter
+- [Medium: Working with APIs in Flutter](https://medium.com/flutter-community/working-with-apis-in-flutter-8745968103e9)
+- [Medium: Trabajando con APIs en FLutter](https://medium.com/comunidad-flutter/trabajando-con-api-en-flutter-2e49b78b6b98)
+- [Medium: Parseando JSON en Flutter](https://medium.com/@carlosAmillan/parseando-json-complejo-en-flutter-18d46c0eb045)
+
