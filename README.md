@@ -6,3 +6,4 @@ This Project is created with the idea How to use Wordpres API as a Backend for t
 - [x] Visualize Posts
 - [ ] Create Model for Users
 - [ ] Login/Register Users
+- [ ] Create Documentation of how this project was created
