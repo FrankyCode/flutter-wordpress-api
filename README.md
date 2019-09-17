@@ -14,6 +14,7 @@ This Project is created with the idea How to use Wordpres API as a Backend for t
 ## Documentation of WordPress API
 - [HandBook](https://developer.wordpress.org/rest-api/)
 - [References](https://developer.wordpress.org/rest-api/reference/)
+- [Authentication - Nonces - Tokens in Wordpress](https://codex.wordpress.org/WordPress_Nonces)
 
 ## Flutter
 - [CookBook: Spanish - Obtener datos desde internet](https://flutter-es.io/docs/cookbook/networking/fetch-data)
