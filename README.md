@@ -4,7 +4,10 @@ This Project is created with the idea How to use Wordpres API as a Backend for t
 
 - [x] Create Model for Posts
 - [x] Visualize Posts
+- [ ] Create Model for Pages
+- [ ] Create Model for Media
 - [ ] Create Model for Users
+- [ ] Show Media in Posts
 - [ ] Login/Register Users
 - [ ] Created Posts
 - [ ] Update Posts
@@ -22,6 +25,13 @@ This Project is created with the idea How to use Wordpres API as a Backend for t
 
 ## Flutter Packages
 - [Http](https://pub.dev/packages/http)
+- [Json Annotation](https://pub.dev/packages/json_annotation)
+
+## Flutter Dev Packages
+- [Json Model](https://pub.dev/packages/json_model)
+- [Json Serializable](https://pub.dev/packages/json_serializable)
+- [Build Runner](https://pub.dev/packages/build_runner)
+
 
 ## Articles for Flutter
 - [Medium: Working with APIs in Flutter](https://medium.com/flutter-community/working-with-apis-in-flutter-8745968103e9)
