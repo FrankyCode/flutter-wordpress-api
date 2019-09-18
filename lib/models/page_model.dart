@@ -1,23 +1,24 @@
 
-class Posts{
+class Pages {
 
-  List<Post> items = new List();
+  List<Page> items = new List();
 
-  Posts();
+  Pages();
 
-  Posts.fromJsonList(List<dynamic> jsonList){
-    if(jsonList == null ) return;
-
+  Pages.fromJsonList(List<dynamic> jsonList){
+    if(jsonList == null) return;
     for(var item in jsonList){
-      final post = Post.fromJsonMap(item);
-      items.add(post);
+      final page = Page.fromJsonMap(item);
+      items.add(page);
     }
   }
 
 
 }
 
-class Post {
+
+
+class Page {
   int id;
   String date;
   String dateGmt;
@@ -25,26 +26,23 @@ class Post {
   String modified;
   String modifiedGmt;
   String slug;
-  String status;
-  String type;
+  StatusEnum status;
+  Type type;
   String link;
   Guid title;
   Content content;
   Content excerpt;
   int author;
   int featuredMedia;
-  String commentStatus;
-  String pingStatus;
-  bool sticky;
+  int parent;
+  int menuOrder;
+  Status commentStatus;
+  Status pingStatus;
   String template;
-  String format;
   List<dynamic> meta;
-  List<int> categories;
-  List<dynamic> tags;
-  String jetpackFeaturedMediaUrl;
   Links links;
 
-  Post({
+  Page({
     this.id,
     this.date,
     this.dateGmt,
@@ -60,63 +58,43 @@ class Post {
     this.excerpt,
     this.author,
     this.featuredMedia,
+    this.parent,
+    this.menuOrder,
     this.commentStatus,
     this.pingStatus,
-    this.sticky,
     this.template,
-    this.format,
     this.meta,
-    this.categories,
-    this.tags,
-    this.jetpackFeaturedMediaUrl,
     this.links,
   });
 
-
-
-  Post.fromJsonMap( Map<String, dynamic> json ){
-    id                      = json['id'];
-    date                    = json['date'];
-    dateGmt                 = json['date_gmt'];
-    guid                    = Guid.fromJsonMap(json['guid']);
-    modified                = json['modified'];
-    modifiedGmt             = json['modified_gmt'];
-    slug                    = json['slug'];
-    status                  = json['status'];
-    type                    = json['type'];
-    link                    = json['link'];
-    title                   = Guid.fromJsonMap(json['title']);
-    content                 = Content.fromJsonMap(json['content']);
-    excerpt                 = Content.fromJsonMap(json['excerpt']);
-    author                  = json['author'];
-    featuredMedia           = json['featured_media'];
-    commentStatus           = json['comment_status'];
-    pingStatus              = json['ping_status'];
-    sticky                  = json['sticky'];
-    template                = json['template'];
-    format                  = json['format'];
-    meta                    = json['meta'];
-    categories              = json['categories'].cast<int>();
-    tags                    = json['tags'];
-    jetpackFeaturedMediaUrl = getImageJetpack(json);
-    links                   = Links.fromJsonMap(json['_links']);
+  Page.fromJsonMap(Map<String, dynamic> json){
+    id = json['id'];
+    date = json['date'];
+    dateGmt = json['date_gmt'];
+    guid = json['guid'];
+    modified = json['modified'];
+    modifiedGmt = json['modified_gmt'];
+    slug = json['slug'];
+    status = json['status'];
+    type = json['type'];
+    link = json['link'];
+    title = json['title'];
+    content = json['content'];
+    excerpt = json['excerpt'];
+    author = json['author'];
+    featuredMedia = json['featured_media'];
+    parent = json['parent'];
+    menuOrder = json['menu_order'];
+    commentStatus = json['comment_status'];
+    pingStatus = json['ping_status'];
+    template = json['template'];
+    meta = json['meta'];
+    links = json['_links'];
   }
-
-
-  getImageJetpack(json){
-    if (jetpackFeaturedMediaUrl == null){
-      return 'https://www.freeiconspng.com/uploads/no-image-icon-11.PNG';
-    }else{
-      return json['jetpack_featured_media_url'];
-    }
-  }
-
-  
-
-
-
 
 }
+
+enum Status { CLOSED }
 
 class Content {
   String rendered;
@@ -127,7 +105,7 @@ class Content {
     this.protected,
   });
 
-  Content.fromJsonMap( Map<String, dynamic> json ){
+   Content.fromJsonMap( Map<String, dynamic> json ){
     rendered = json['rendered'];
     protected = json['protected'];
   }
@@ -153,10 +131,9 @@ class Links {
   List<Author> replies;
   List<VersionHistory> versionHistory;
   List<PredecessorVersion> predecessorVersion;
-  List<Author> wpFeaturedmedia;
   List<About> wpAttachment;
-  List<WpTerm> wpTerm;
   List<Cury> curies;
+  List<Author> up;
 
   Links({
     this.self,
@@ -166,12 +143,10 @@ class Links {
     this.replies,
     this.versionHistory,
     this.predecessorVersion,
-    this.wpFeaturedmedia,
     this.wpAttachment,
-    this.wpTerm,
     this.curies,
+    this.up,
   });
-
 
   Links.fromJsonMap(Map<String, dynamic> json){
     self                = recorrerListaAbout('self', json);
@@ -181,14 +156,13 @@ class Links {
     replies             = recorrerListaAuthor('replies', json);
     versionHistory      = recorrerListaVersion('version-history', json);
     predecessorVersion  = recorrerListaPredeccesor('predecessor-version', json);
-    wpFeaturedmedia     = recorrerListaAuthor('wp:featuredmedia', json);
     wpAttachment        = recorrerListaAbout('wp:attachment', json);
-    wpTerm              = recorrerListaWpTerm('wp:term', json);
     curies              = recorrerListaCuriesn('curies', json);
-
+    up = json['up'];
   }
 
-  recorrerListaAbout(String valor, json){
+
+   recorrerListaAbout(String valor, json){
      var list = json[valor] as List;
   //  print(list.runtimeType);
     List<About> aboutList = list.map((i) => About.fromJsonMap(i)).toList();
@@ -214,12 +188,7 @@ class Links {
     List<PredecessorVersion> aboutList = list.map((i) => PredecessorVersion.fromJsonMap(i)).toList();
     return aboutList;
   }
-  recorrerListaWpTerm(String valor, json){
-     var list = json[valor] as List;
-  //  print(list.runtimeType);
-    List<WpTerm> aboutList = list.map((i) => WpTerm.fromJsonMap(i)).toList();
-    return aboutList;
-  }
+ 
   recorrerListaCuriesn(String valor, json){
      var list = json[valor] as List;
   //  print(list.runtimeType);
@@ -257,8 +226,8 @@ class Author {
 }
 
 class Cury {
-  String name;
-  String href;
+  Name name;
+  Href href;
   bool templated;
 
   Cury({
@@ -267,12 +236,16 @@ class Cury {
     this.templated,
   });
 
-  Cury.fromJsonMap(Map<String, dynamic> json){
+   Cury.fromJsonMap(Map<String, dynamic> json){
     name      = json['name'];
     href      = json['href'];
     templated = json['templated'];
   }
 }
+
+enum Href { HTTPS_API_W_ORG_REL }
+
+enum Name { WP }
 
 class PredecessorVersion {
   int id;
@@ -304,21 +277,6 @@ class VersionHistory {
   }
 }
 
-class WpTerm {
-  String taxonomy;
-  bool embeddable;
-  String href;
+enum StatusEnum { PUBLISH }
 
-  WpTerm({
-    this.taxonomy,
-    this.embeddable,
-    this.href,
-  });
-
-  WpTerm.fromJsonMap(Map<String, dynamic> json){
-    taxonomy    = json['taxonomy'];
-    embeddable  = json['embeddable'];
-    href        = json['href'];
-
-  }
-}
+enum Type { PAGE }

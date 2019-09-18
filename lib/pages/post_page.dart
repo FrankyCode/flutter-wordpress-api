@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_wordpress/providers/post_providers.dart';
+import 'package:flutter_wordpress/providers/media_provider.dart';
+import 'package:flutter_wordpress/providers/post_provider.dart';
 
 class PostPage extends StatelessWidget {
   final postProvider = new PostProvider();
+  final mediaProvider = new MediaProvider();
 
   @override
   Widget build(BuildContext context) {
@@ -12,8 +14,16 @@ class PostPage extends StatelessWidget {
         backgroundColor: Colors.blueAccent,
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {},
+            icon: Icon(Icons.exit_to_app),
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, '/');
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.pages),
+            onPressed: () {
+              Navigator.pushNamed(context, 'pages');
+            },
           )
         ],
       ),
@@ -42,27 +52,45 @@ class PostPage extends StatelessWidget {
               itemCount: snapshot.data.length,
               itemBuilder: (BuildContext context, int index) {
                 return Padding(
-                  padding: const EdgeInsets.only(bottom:15.0),
+                  padding: const EdgeInsets.only(bottom: 15.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text("Title Post: ${snapshot.data[index].title.rendered}"),
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(20.0),
-                        child: FadeInImage(
-                          height: MediaQuery.of(context).size.height * 0.5,
-                          width: MediaQuery.of(context).size.width * 0.8,
-                          image: NetworkImage(
-                              snapshot.data[index].jetpackFeaturedMediaUrl),
-                          placeholder: AssetImage('assets/img/no-image.jpg'),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
+                      _showImagePost(index),
+
                     ],
                   ),
                 );
               },
+            ),
+          );
+        } else {
+          return Container(
+            height: MediaQuery.of(context).size.height * 0.8,
+            alignment: Alignment.center,
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
+    );
+  }
+
+  Widget _showImagePost(index) {
+    return FutureBuilder(
+      future: mediaProvider.getMedia(),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        if (snapshot.hasData) {
+          return ClipRRect(
+            borderRadius: BorderRadius.circular(20.0),
+            child: FadeInImage(
+              height: MediaQuery.of(context).size.height * 0.5,
+              width: MediaQuery.of(context).size.width * 0.8,
+              image: NetworkImage(
+                  snapshot.data[index].guid.rendered),
+              placeholder: AssetImage('assets/img/no-image.jpg'),
+              fit: BoxFit.cover,
             ),
           );
         } else {
