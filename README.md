@@ -22,6 +22,7 @@ This Project is created with the idea How to use Wordpres API as a Backend for t
 ## Flutter
 - [CookBook: Spanish - Obtener datos desde internet](https://flutter-es.io/docs/cookbook/networking/fetch-data)
 - [CookBook: English - Fetch data from the Internet](https://flutter.dev/docs/cookbook/networking/fetch-data)
+- [DOC: Serializar JSON usando Auto Librerias](https://flutter-es.io/docs/development/data-and-backend/json#serializar-json-usando-librer%C3%ADas-de-auto-generaci%C3%B3n-de-c%C3%B3digo)
 
 ## Flutter Packages
 - [Http](https://pub.dev/packages/http)
