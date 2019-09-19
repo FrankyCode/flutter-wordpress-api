@@ -1,28 +1,30 @@
-import 'dart:convert';
 
+import 'package:flutter_wordpress/API/api.dart';
 import 'package:flutter_wordpress/models/user_model.dart';
 import 'package:http/http.dart' as http;
 
 class UserProvider{
 
   // Base URL for our wordpress API
-  String _url = '10.0.2.2';
+  String _url = URLPOST;
 
   // Api
-  String _apikey = '/wordpress/wp-json/wp/v2/users';
-
-  // Api for Login
+  String _apiKey = '/wp-json/wp/v2/users';
 
 
   Future<List<User>> signIn() async {
-    final url = Uri.http(_url, _apikey);
+    final url = Uri.http(_url, _apiKey);
     final resp = await http.post(url);
 
-    final decodedData = json.decode(resp.body);
-    final users = new Users.fromJsonList(decodedData);
+    if(resp.statusCode == 200){
+    final List<User>  users = userFromJson(resp.body);
+      print(users[0].name);
+      return users;
 
-    return users.items;
+    }else{
+      throw Exception('Failed to load Data');
 
+    }
   }
 
   Future<http.Response> login(String username, String password) async {
@@ -37,18 +39,18 @@ class UserProvider{
     }
   }
 
-  Future<List<User>> getUsers() async {
-    final url = Uri.http(_url, _apikey);
+ Future<List<User>> getUsers() async {
+    final url  = Uri.http(_url, _apiKey);
     final resp = await http.get(url);
+    if(resp.statusCode == 200){
+    final List<User>  users = userFromJson(resp.body);
+      print(users[0].name);
+      return users;
 
-    final decodedData = json.decode(resp.body);
-    final users = new Users.fromJsonList(decodedData);
+    }else{
+      throw Exception('Failed to load Data');
 
-    // print(decodedData[0]);
-    print(users.items[0].name);
-
-    return users.items;
-
+    }
   }
 
 

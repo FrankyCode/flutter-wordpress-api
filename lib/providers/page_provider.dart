@@ -1,24 +1,44 @@
-import 'package:flutter_wordpress/models/page_model.dart';
+import 'package:flutter_wordpress/API/api.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:flutter_wordpress/models/page_model.dart';
 
 
 class PageProvider{
 
-  String _url = 'babydeal.ie';
-  String _apiKey = '/wp-json/wp/v2/pages';
 
+  String _url = URLPOST;
+  String _apiKey = '/wp-json/wp/v2/pages/';
+
+  
   Future<List<Page>> getPages() async {
-
-    final url = Uri.http(_url, _apiKey);
+    final url  = Uri.http(_url, _apiKey);
     final resp = await http.get(url);
-    final decodedData = json.decode(resp.body);
+    if(resp.statusCode == 200){
+    final List<Page>  pages  = pagesFromJson(resp.body);
+    print(pages[0].guid.rendered);
+    return pages;
 
-    final page = new Pages.fromJsonList(decodedData);
+    }else{
+      throw Exception('Failed to load Data');
 
-    print(decodedData);
-    return page.items;
-
+    }
   }
+
+
+  Future getAds() async{
+    final url = Uri.http(_url, _apiKey,{
+        "include" : "4780"
+    });
+
+    final resp = await http.get(url);
+    if(resp.statusCode == 200){
+      Page page = pageFromJson(resp.body);
+      return page;
+    }else{
+      throw Exception('Failed to load Data');
+    }
+  }
+
+
 
 }

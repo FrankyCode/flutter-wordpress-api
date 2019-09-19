@@ -16,7 +16,6 @@ class _LoginPageState extends State<LoginPage> {
   final mediaProvider = new MediaProvider();
 
    TextEditingController controllerUser = new TextEditingController();
-
    TextEditingController controllerPass = new TextEditingController();
 
   String mensaje = '';
@@ -167,8 +166,8 @@ class _LoginPageState extends State<LoginPage> {
         ),
         onPressed: () {
           //userProvider.getUsers();
-          //postProvider.getPosts();
-          mediaProvider.getMedia();
+          postProvider.getBoth();
+          //mediaProvider.getMedias();
           //Navigator.pushNamed(context, 'register');
         },
       ),
