@@ -26,12 +26,9 @@ This Project is created with the idea How to use Wordpres API as a Backend for t
 
 ## Flutter Packages
 - [Http](https://pub.dev/packages/http)
-- [Json Annotation](https://pub.dev/packages/json_annotation)
 
-## Flutter Dev Packages
-- [Json Model](https://pub.dev/packages/json_model)
-- [Json Serializable](https://pub.dev/packages/json_serializable)
-- [Build Runner](https://pub.dev/packages/build_runner)
+## Tools
+- [Create Models Serialize and Deserialize](https://app.quicktype.io/)
 
 
 ## Articles for Flutter
