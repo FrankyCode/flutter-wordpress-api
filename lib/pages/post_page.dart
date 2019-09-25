@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_wordpress/preferences/user_preferences.dart';
 
 import 'package:flutter_wordpress/providers/post_provider.dart';
 
 class PostPage extends StatelessWidget {
   final postProvider = new PostProvider();
+  final prefs = new UserPreferences();
+  static final String routename = 'post';
 
   @override
   Widget build(BuildContext context) {
+    prefs.lastPage = PostPage.routename;
     return Scaffold(
       appBar: AppBar(
         title: Text("WordPress APi"),
@@ -15,7 +19,7 @@ class PostPage extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.pages),
             onPressed: () {
-              Navigator.pushNamed(context, 'pages');
+              Navigator.pushReplacementNamed(context, 'pages');
             },
           ),
           IconButton(

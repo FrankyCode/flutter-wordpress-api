@@ -1,14 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_wordpress/preferences/user_preferences.dart';
 import 'package:flutter_wordpress/providers/page_provider.dart';
 
 class PagesPage extends StatelessWidget {
   final pageProvider = PageProvider();
+    final prefs = new UserPreferences();
+  static final String routename = 'pages';
 
   @override
   Widget build(BuildContext context) {
+
+    prefs.lastPage = PagesPage.routename;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('ADS'),
+        actions: <Widget>[
+          IconButton(icon: Icon(Icons.local_post_office), onPressed: (){
+            Navigator.pushReplacementNamed(context, 'post');
+          },),
+        ],
       ),
       body: FutureBuilder(
         future: pageProvider.getInfoAds(),

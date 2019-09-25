@@ -4,21 +4,28 @@ import 'package:flutter_wordpress/pages/login_page.dart';
 import 'package:flutter_wordpress/pages/pages_page.dart';
 import 'package:flutter_wordpress/pages/post_page.dart';
 import 'package:flutter_wordpress/pages/register_page.dart';
+import 'package:flutter_wordpress/preferences/user_preferences.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  final prefs = new UserPreferences();
+  await prefs.initPrefs();
+  runApp(MyApp());
+  }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final prefs = new UserPreferences();
+    //print(prefs.token);
     return Provider(
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Material App',
-        initialRoute: '/',
+        initialRoute: prefs.lastPage,
         routes: {
           '/': (BuildContext context) => LoginPage(),
           'register': (BuildContext context) => RegisterPage(),
-          'home': (BuildContext context) => PostPage(),
+          'post': (BuildContext context) => PostPage(),
           'pages': (BuildContext context) => PagesPage(),
         },
       ),
