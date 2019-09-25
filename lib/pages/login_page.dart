@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wordpress/bloc/provider.dart';
 import 'package:flutter_wordpress/providers/user_provider.dart';
+import 'package:flutter_wordpress/utils/utils.dart';
 
 class LoginPage extends StatelessWidget {
   final userProvider = new UserProvider();
@@ -139,10 +140,21 @@ class LoginPage extends StatelessWidget {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
           elevation: 0.0,
           color: Colors.pinkAccent,
-          onPressed: snapshot.hasData ? () => userProvider.login(bloc.email, bloc.password) : null,
+          onPressed: snapshot.hasData ? () => _login(context, bloc) : null,
         );
       }
     );
+  }
+
+  _login(BuildContext context, LoginBloc bloc)async{
+    Map info = await userProvider.login(bloc.email, bloc.password);
+
+    if(info['ok']){
+      Navigator.pushReplacementNamed(context, 'post');
+    }else{
+      showAlert(context, 'User or password incorrect');
+    }
+
   }
 
   Widget _buttonRegister(

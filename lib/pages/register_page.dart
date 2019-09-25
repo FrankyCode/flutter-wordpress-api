@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wordpress/bloc/provider.dart';
 import 'package:flutter_wordpress/providers/user_provider.dart';
+import 'package:flutter_wordpress/utils/utils.dart';
 
 class RegisterPage extends StatelessWidget {
   final userProvider = new UserProvider();
@@ -170,11 +171,23 @@ class RegisterPage extends StatelessWidget {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
           elevation: 0.0,
           color: Colors.pinkAccent,
-          onPressed: snapshot.hasData ? () => userProvider.registerUser(context, bloc.username, bloc.email, bloc.password) : null,
+          onPressed: snapshot.hasData ? () => _registerUser(context, bloc) : null,
 
         );
       }
     );
+  }
+
+  _registerUser(BuildContext context, RegisterBloc bloc) async{
+    Map info = await userProvider.registerUser(bloc.username, bloc.email, bloc.password);
+
+    if(info['ok']){
+      showAlert(context, info['mensaje']);
+      Navigator.pushReplacementNamed(context, '/');
+    }else{
+      showAlert(context, info['mensaje']);
+    }
+
   }
 
   Widget _comebackLogin(
