@@ -4,11 +4,12 @@ This Project is created with the idea How to use Wordpres API as a Backend for t
 
 - [x] Create Model for Posts
 - [x] Visualize Posts
+- [ ] Create Custom Endpoints WordPress API 
 - [x] Create Model for Pages
 - [x] Create Model for Media
 - [x] Create Model for Users
 - [x] Show Media in Posts
-- [ ] Login/Register Users
+- [x] Login/Register Users
 - [ ] Created Posts
 - [ ] Update Posts
 - [ ] Delete Posts
