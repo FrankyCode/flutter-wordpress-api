@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_wordpress/models/page_model.dart';
 import 'package:flutter_wordpress/providers/page_provider.dart';
 
 class PagesPage extends StatelessWidget {
@@ -9,25 +8,23 @@ class PagesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Pages Wordpress'),
+        title: Text('ADS'),
       ),
       body: FutureBuilder(
-        future: pageProvider.getAds(),
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
+        future: pageProvider.getInfoAds(),
+        builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasError) {
               return Text('Error: ${snapshot.error}');
             } else {
               return ListView.builder(
-                //itemCount: snapshot.data.length,
+                itemCount: snapshot.data.length,
                 itemBuilder: (context, int index) {
                   return Container(
                     margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.05),
                     child: Column(
                       children: <Widget>[
-                        _showTitle(snapshot.data[index].title.rendered),
-                        //_showDescription(snapshot.data[index].content.rendered),
-
+                        _showImage(context, snapshot.data[index])
                       ],
                     ),
                   );
@@ -46,13 +43,21 @@ class PagesPage extends StatelessWidget {
     );
   }
 
-
-
-  Widget _showTitle(String title){
-    return Text(title);
+  Widget _showImage(BuildContext context, String img) {
+    return Container(
+      // color: Colors.pinkAccent,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20.0),
+        child: FadeInImage(
+          height: MediaQuery.of(context).size.height * 0.5,
+          width: MediaQuery.of(context).size.width * 0.8,
+          image: NetworkImage(img),
+          placeholder: AssetImage('assets/img/no-image.jpg'),
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
   }
 
-  Widget _showDescription(String description){
-    return Text(description, style:TextStyle(fontSize: 10.0));
-  }
+ 
 }

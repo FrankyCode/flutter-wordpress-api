@@ -11,6 +11,7 @@
 
 # APIS
 /lib/API
+/lib/wp-content
 
 # IntelliJ related
 *.iml

@@ -1,57 +1,68 @@
+import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_wordpress/API/api.dart';
-import 'package:flutter_wordpress/models/user_model.dart';
 import 'package:http/http.dart' as http;
 
-class UserProvider{
-
+class UserProvider {
   // Base URL for our wordpress API
-  String _url = URLPOST;
+  final _url = URLPOSTHTTPS;
 
-  // Api
-  String _apiKey = '/wp-json/wp/v2/users';
+  // Token
+  String token = '';
 
+  Future login(String username, String password) async {
+    final authData = {
+        "username": username,
+        "password": password
+      };
 
-  Future<List<User>> signIn() async {
-    final url = Uri.http(_url, _apiKey);
-    final resp = await http.post(url);
+      final resp = await http.post('$_url/wp-json/jwt-auth/v1/token', 
+      headers: {'Content-type': 'application/json'}, 
+      body: json.encode(authData),
+      );
 
-    if(resp.statusCode == 200){
-    final List<User>  users = userFromJson(resp.body);
-      print(users[0].name);
-      return users;
+      Map<String, dynamic> decodeResp = json.decode(resp.body);
+      print(decodeResp);
 
+      if (decodeResp.containsKey('token')) {
+        // Save TOken in storage
+        return decodeResp['token'];
+      } else {
+        print('Error Username or Password wrong');
+      }
+    
+  }
+
+  Future registerUser(BuildContext context, String username, String email, String password) async {
+      final authData = {
+        "username": username,
+        "email": email,
+        "password": password
+
+      };
+
+      final resp = await http.post('$_url/wp-json/wp/v2/users/register', 
+      headers: {'Content-type': 'application/json'}, 
+      body: json.encode(authData));
+
+      Map<String, dynamic> decodeResp = json.decode(resp.body);
+     print(decodeResp);
+    
+    if(decodeResp['code'] == 200 ){
+      print(decodeResp['message']);
+      Navigator.pushReplacementNamed(context, '/');
     }else{
-      throw Exception('Failed to load Data');
-
+      //showAlert(context, 'error');
+      print(decodeResp['message']);
     }
+
+   
   }
 
-  Future<http.Response> login(String username, String password) async {
-    try{
-      final url = 'http://babydeal.ie/wp-json/jwt-auth/v1/token?username=$username&password=$password';
-      final resp = await http.post(url);
-      return resp;
-
-    }catch(e){
-       print('Error: $e \n -----Problems with textfield---- \n Username: $username \n Password: $password');
-       return e;
-    }
+  Future logout(token) async {
+    final url = '$_url/jwt-auth/v1/token/revoke';
+    final resp = await http.post(url, headers: {"Authorization": "Bearer" + token});
+    print(resp);
   }
-
- Future<List<User>> getUsers() async {
-    final url  = Uri.http(_url, _apiKey);
-    final resp = await http.get(url);
-    if(resp.statusCode == 200){
-    final List<User>  users = userFromJson(resp.body);
-      print(users[0].name);
-      return users;
-
-    }else{
-      throw Exception('Failed to load Data');
-
-    }
-  }
-
-
 }
