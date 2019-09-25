@@ -21,13 +21,13 @@ class User {
     String locale;
     String nickname;
     String slug;
-    List<String> roles;
     DateTime registeredDate;
+    List<dynamic> role;
+    String password;
     Capabilities capabilities;
     ExtraCapabilities extraCapabilities;
     Map<String, String> avatarUrls;
-    List<dynamic> meta;
-    Links links;
+    Meta meta;
 
     User({
         this.id,
@@ -42,13 +42,13 @@ class User {
         this.locale,
         this.nickname,
         this.slug,
-        this.roles,
         this.registeredDate,
+        this.role,
+        this.password,
         this.capabilities,
         this.extraCapabilities,
         this.avatarUrls,
         this.meta,
-        this.links,
     });
 
     factory User.fromJson(Map<String, dynamic> json) => User(
@@ -64,13 +64,13 @@ class User {
         locale: json["locale"],
         nickname: json["nickname"],
         slug: json["slug"],
-        roles: List<String>.from(json["roles"].map((x) => x)),
         registeredDate: DateTime.parse(json["registered_date"]),
+        role: List<dynamic>.from(json["role"].map((x) => x)),
+        password: json["password"],
         capabilities: Capabilities.fromJson(json["capabilities"]),
         extraCapabilities: ExtraCapabilities.fromJson(json["extra_capabilities"]),
         avatarUrls: Map.from(json["avatar_urls"]).map((k, v) => MapEntry<String, String>(k, v)),
-        meta: List<dynamic>.from(json["meta"].map((x) => x)),
-        links: Links.fromJson(json["_links"]),
+        meta: Meta.fromJson(json["meta"]),
     );
 
     Map<String, dynamic> toJson() => {
@@ -86,96 +86,42 @@ class User {
         "locale": locale,
         "nickname": nickname,
         "slug": slug,
-        "roles": List<dynamic>.from(roles.map((x) => x)),
         "registered_date": registeredDate.toIso8601String(),
+        "role": List<dynamic>.from(role.map((x) => x)),
+        "password": password,
         "capabilities": capabilities.toJson(),
         "extra_capabilities": extraCapabilities.toJson(),
         "avatar_urls": Map.from(avatarUrls).map((k, v) => MapEntry<String, dynamic>(k, v)),
-        "meta": List<dynamic>.from(meta.map((x) => x)),
-        "_links": links.toJson(),
+        "meta": meta.toJson(),
     };
 }
 
 class Capabilities {
-    bool read;
-    bool level0;
-    bool uploadFiles;
-    bool deletePublishedPosts;
-    bool subscriber;
-
-    Capabilities({
-        this.read,
-        this.level0,
-        this.uploadFiles,
-        this.deletePublishedPosts,
-        this.subscriber,
-    });
+    Capabilities();
 
     factory Capabilities.fromJson(Map<String, dynamic> json) => Capabilities(
-        read: json["read"],
-        level0: json["level_0"],
-        uploadFiles: json["upload_files"],
-        deletePublishedPosts: json["delete_published_posts"],
-        subscriber: json["subscriber"],
     );
 
     Map<String, dynamic> toJson() => {
-        "read": read,
-        "level_0": level0,
-        "upload_files": uploadFiles,
-        "delete_published_posts": deletePublishedPosts,
-        "subscriber": subscriber,
     };
 }
 
 class ExtraCapabilities {
-    bool subscriber;
-
-    ExtraCapabilities({
-        this.subscriber,
-    });
+    ExtraCapabilities();
 
     factory ExtraCapabilities.fromJson(Map<String, dynamic> json) => ExtraCapabilities(
-        subscriber: json["subscriber"],
     );
 
     Map<String, dynamic> toJson() => {
-        "subscriber": subscriber,
     };
 }
 
-class Links {
-    List<Collection> self;
-    List<Collection> collection;
+class Meta {
+    Meta();
 
-    Links({
-        this.self,
-        this.collection,
-    });
-
-    factory Links.fromJson(Map<String, dynamic> json) => Links(
-        self: List<Collection>.from(json["self"].map((x) => Collection.fromJson(x))),
-        collection: List<Collection>.from(json["collection"].map((x) => Collection.fromJson(x))),
+    factory Meta.fromJson(Map<String, dynamic> json) => Meta(
     );
 
     Map<String, dynamic> toJson() => {
-        "self": List<dynamic>.from(self.map((x) => x.toJson())),
-        "collection": List<dynamic>.from(collection.map((x) => x.toJson())),
-    };
-}
-
-class Collection {
-    String href;
-
-    Collection({
-        this.href,
-    });
-
-    factory Collection.fromJson(Map<String, dynamic> json) => Collection(
-        href: json["href"],
-    );
-
-    Map<String, dynamic> toJson() => {
-        "href": href,
     };
 }

@@ -8,6 +8,8 @@ List<Page> pagesFromJson(String str) => List<Page>.from(json.decode(str).map((x)
 
 Page pageFromJson(String str) => Page.fromJson(json.decode(str));
 
+List<Page> respon(String str) => List<Page>.from(json.decode(str).map((j) => Page.fromJson(j)));
+
 String pageToJson(Page data) => json.encode(data.toJson());
 
 String pagesToJson(List<Page> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
