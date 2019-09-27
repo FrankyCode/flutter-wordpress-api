@@ -15,6 +15,12 @@ This Project is created with the idea How to use Wordpres API as a Backend for t
 - [ ] Delete Posts
 - [ ] Create Documentation of how this project was created
 
+## Custom Plugin Wordpress
+For the next versions is necesary install the Custom Plugin, because I'm use custom endpoints for consume the API.
+This plugin is very basic and of course is not perfect but I created with my little bit experience in PHP and I'm very happy with the result.
+
+- [Gist for plugin](https://gist.github.com/FrankyCode/8255e5a3da223c56666125d4d0808194)
+
 ## Documentation of WordPress API
 
 - [HandBook](https://developer.wordpress.org/rest-api/)
