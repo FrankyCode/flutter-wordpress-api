@@ -4,9 +4,9 @@ This Project is created with the idea How to use Wordpres API as a Backend for t
 
 - [x] Create Model for Posts
 - [x] Visualize Posts
-- [ ] Create Custom Endpoints WordPress API 
+- [x] Create Plugin for Custom Endpoints/Routes 
 - [x] Create Model for Pages
-- [x] Create Model for Media
+- [x] ~~Create Model for Media~~
 - [x] Create Model for Users
 - [x] Show Media in Posts
 - [x] Login/Register Users
@@ -15,11 +15,31 @@ This Project is created with the idea How to use Wordpres API as a Backend for t
 - [ ] Delete Posts
 - [ ] Create Documentation of how this project was created
 
+## Custom Plugin Wordpress
+
+For the next versions is necesary install the Custom Plugin, because I'm use custom endpoints for consume the API.
+This plugin is very basic and of course is not perfect but I created with my little bit experience in PHP and I'm very happy with the result.
+
+- [Gist for plugin](https://gist.github.com/FrankyCode/8255e5a3da223c56666125d4d0808194)
+
+### How to Use?
+
+- 1º Download the plugin for Gist
+- 2º Go to your folder htdocs\wp-content\plugins inside in your Wordpress
+- 3º Create a folder for contain the plugin for example wl-test
+- 4º Copy inside this folder the file wl-api.php
+- 5º Go to dashboard > Plugins > Installed Plugins > Custom Api > Activate
+- 6º Done ^_^
+
+Now you can use the custom Routes/endpoints for consume the data for example posts. 
+Be carefull if you use this plugin in productions because if you need to ovewrite or changes the file, you needed desactivate first before to changes.
+
 ## Documentation of WordPress API
 
 - [HandBook](https://developer.wordpress.org/rest-api/)
 - [References](https://developer.wordpress.org/rest-api/reference/)
 - [Authentication - Nonces - Tokens in Wordpress](https://codex.wordpress.org/WordPress_Nonces)
+- [Code Reference for Get Image](https://developer.wordpress.org/reference/functions/get_the_post_thumbnail_url/)
 
 ## Flutter
 
@@ -31,6 +51,7 @@ This Project is created with the idea How to use Wordpres API as a Backend for t
 
 - [Http](https://pub.dev/packages/http)
 - [RxDart](https://pub.dev/packages/rxdart)
+- [Shared Preference](https://pub.dev/packages/shared_preferences)
 
 ## Tools
 
@@ -46,4 +67,3 @@ This Project is created with the idea How to use Wordpres API as a Backend for t
 ## RegExpression
 
 - Get Images in pages -> [^(src=\\")]([^"])+(png|jpg|gif)
-- Get Title -> [^"]+[[A-Z]\w+][\\]
