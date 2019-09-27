@@ -17,9 +17,9 @@ class PostPage extends StatelessWidget {
         backgroundColor: Colors.blueAccent,
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.pages),
+            icon: Icon(Icons.whatshot),
             onPressed: () {
-              Navigator.pushReplacementNamed(context, 'pages');
+              Navigator.pushReplacementNamed(context, 'ads');
             },
           ),
           IconButton(
@@ -39,7 +39,7 @@ class PostPage extends StatelessWidget {
   Widget showPosts() {
     //postProvider.getPosts();
     return FutureBuilder(
-      future: postProvider.getBoth(),
+      future: postProvider.getPosts(),
       builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.hasError) {
@@ -58,8 +58,8 @@ class PostPage extends StatelessWidget {
                       //mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         // Text(snapshot.data['title'])
-                        _showText(context, snapshot.data[index].first),
-                        _showImage(context, snapshot.data[index].last),
+                        _showText(context, snapshot.data[index].title),
+                        _showImage(context, snapshot.data[index].featuredImage.medium),
                       ],
                     ),
                   );
@@ -88,19 +88,33 @@ class PostPage extends StatelessWidget {
     );
   }
 
-  Widget _showImage(BuildContext context, String img) {
-    return Container(
-      // color: Colors.pinkAccent,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(20.0),
-        child: FadeInImage(
-          height: MediaQuery.of(context).size.height * 0.5,
-          width: MediaQuery.of(context).size.width * 0.8,
-          image: NetworkImage(img),
-          placeholder: AssetImage('assets/img/no-image.jpg'),
-          fit: BoxFit.cover,
+  Widget _showImage(BuildContext context, var img) {
+    if (img == false || img == null) {
+      return Container(
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(20.0),
+          child: FadeInImage(
+            height: MediaQuery.of(context).size.height * 0.5,
+            width: MediaQuery.of(context).size.width * 0.8,
+            image: AssetImage('assets/img/no-image.jpg'),
+            placeholder: AssetImage('assets/img/loading.gif'),
+            fit: BoxFit.cover,
+          ),
         ),
-      ),
-    );
+      );
+    } else {
+      return Container(
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(20.0),
+          child: FadeInImage(
+            height: MediaQuery.of(context).size.height * 0.5,
+            width: MediaQuery.of(context).size.width * 0.8,
+            image: NetworkImage(img),
+            placeholder: AssetImage('assets/img/loading.gif'),
+            fit: BoxFit.cover,
+          ),
+        ),
+      );
+    }
   }
 }

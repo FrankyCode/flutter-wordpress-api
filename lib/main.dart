@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wordpress/bloc/provider.dart';
+import 'package:flutter_wordpress/pages/ads_page.dart';
 import 'package:flutter_wordpress/pages/login_page.dart';
-import 'package:flutter_wordpress/pages/pages_page.dart';
 import 'package:flutter_wordpress/pages/post_page.dart';
 import 'package:flutter_wordpress/pages/register_page.dart';
 import 'package:flutter_wordpress/preferences/user_preferences.dart';
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
           '/': (BuildContext context) => LoginPage(),
           'register': (BuildContext context) => RegisterPage(),
           'post': (BuildContext context) => PostPage(),
-          'pages': (BuildContext context) => PagesPage(),
+          'ads': (BuildContext context) => AdsPage(),
         },
       ),
     );

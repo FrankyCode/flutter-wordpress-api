@@ -169,7 +169,7 @@ class LoginPage extends StatelessWidget {
             color: theme.textTheme.body1.color),
       ),
       onPressed: () {
-        Navigator.pushReplacementNamed(context, 'register');
+        Navigator.pushReplacementNamed(context, 'post');
       },
     );
   }
