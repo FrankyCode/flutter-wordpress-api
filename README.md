@@ -4,9 +4,9 @@ This Project is created with the idea How to use Wordpres API as a Backend for t
 
 - [x] Create Model for Posts
 - [x] Visualize Posts
-- [ ] Create Custom Endpoints WordPress API 
+- [x] Create Plugin for Custom Endpoints/Routes 
 - [x] Create Model for Pages
-- [x] Create Model for Media
+- [x] ~~Create Model for Media~~
 - [x] Create Model for Users
 - [x] Show Media in Posts
 - [x] Login/Register Users
@@ -20,6 +20,7 @@ This Project is created with the idea How to use Wordpres API as a Backend for t
 - [HandBook](https://developer.wordpress.org/rest-api/)
 - [References](https://developer.wordpress.org/rest-api/reference/)
 - [Authentication - Nonces - Tokens in Wordpress](https://codex.wordpress.org/WordPress_Nonces)
+- [Code Reference for Get Image](https://developer.wordpress.org/reference/functions/get_the_post_thumbnail_url/)
 
 ## Flutter
 
@@ -31,6 +32,7 @@ This Project is created with the idea How to use Wordpres API as a Backend for t
 
 - [Http](https://pub.dev/packages/http)
 - [RxDart](https://pub.dev/packages/rxdart)
+- [Shared Preference](https://pub.dev/packages/shared_preferences)
 
 ## Tools
 
@@ -46,4 +48,3 @@ This Project is created with the idea How to use Wordpres API as a Backend for t
 ## RegExpression
 
 - Get Images in pages -> [^(src=\\")]([^"])+(png|jpg|gif)
-- Get Title -> [^"]+[[A-Z]\w+][\\]
